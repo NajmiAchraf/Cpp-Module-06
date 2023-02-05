@@ -4,6 +4,7 @@
 #include <iostream>
 #include <exception>
 #include <string>
+#include <math.h>
 
 using std::cout;
 using std::endl;
@@ -19,6 +20,11 @@ private:
 	float	_float;
 	double	_double;
 
+	int		_flag_char;
+	bool	_flag_int;
+	bool	_flag_float;
+	bool	_flag_double;
+
 public:
 
 	string	getStr() const;
@@ -28,10 +34,10 @@ public:
 	double	getDouble() const;
 
 	void	setStr(string str);
-	void	setChar();
-	void	setInt();
-	void	setFloat();
-	void	setDouble();
+	// void	setChar();
+	// void	setInt();
+	// void	setFloat();
+	// void	setDouble();
 
 	Convert();
 	Convert(string str);
@@ -39,10 +45,18 @@ public:
 	Convert &operator = (Convert const & convert);
 	~Convert();
 
-	void	convertToChar();
-	void	convertToInt();
-	void	convertToFloat();
-	void	convertToDouble();
+	void	fillChar(string str);
+	void	fillInt(string str);
+	void	fillFloat(string str);
+	void	fillDouble(string str);
+
+	// void	convertToChar();
+	// void	convertToInt();
+	// void	convertToFloat();
+	// void	convertToDouble();
+
+	void	checkStringPass(string str);
+	void	printAll();
 
 	class ImpossibleException : public std::exception {
 		virtual const char* what() const throw() {

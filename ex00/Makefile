@@ -13,13 +13,13 @@ CPL = 0
 #				FILES					#
 #***************************************#
 
-NOM		= Bureaucrat
+NOM		= Convert
 NAME	= $(EXE_DIR)/$(NOM)
 NAME_UP	= $(shell echo $(NOM) | tr '[:lower:]' '[:upper:]')
 
 SRCS = \
 	main.cpp		\
-	Bureaucrat.cpp	\
+	Convert.cpp		\
 
 #***************************************#
 #				FOLDERS					#
