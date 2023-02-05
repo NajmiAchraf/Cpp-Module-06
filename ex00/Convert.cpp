@@ -33,7 +33,8 @@ Convert::Convert() {
 }
 
 Convert::Convert(string str) : _str(str) {
-	cout << "Parameterize constructor" << endl;
+	cout << C_GREEN << "Parameterize constructor" << endl
+		<< C_CYAN << "The entred string is : " << _str << C_RES << endl;
 	this->_flag_char = true;
 	this->_flag_int = true;
 	this->_flag_float = true;
@@ -64,7 +65,7 @@ Convert &Convert::operator = (Convert const & convert) {
 }
 
 Convert::~Convert() {
-	cout << "Destructor" << endl;
+	cout << C_RED <<"Destructor" << C_RES << endl;
 }
 
 void	Convert::fillChar(string str) {
@@ -199,6 +200,7 @@ void	Convert::fillDouble(string str) {
 }
 
 void	Convert::checkStringPass(string str) {
+
 	try {
 		this->fillChar(str);
 	} catch (std::exception &e) {

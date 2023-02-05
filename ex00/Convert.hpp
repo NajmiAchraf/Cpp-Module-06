@@ -3,12 +3,17 @@
 
 #include <iostream>
 #include <exception>
-#include <string>
+#include <cstring>
 #include <math.h>
 
 using std::cout;
 using std::endl;
 using std::string;
+
+#define C_RES	"\033[0m"
+#define C_RED	"\033[1;31m"
+#define C_GREEN	"\033[1;32m"
+#define C_CYAN	"\033[1;36m"
 
 class Convert {
 
@@ -20,6 +25,7 @@ private:
 	float	_float;
 	double	_double;
 
+	int		_type; // 0 = char, 1 = int, 2 = float, 3 = double
 	int		_flag_char;
 	bool	_flag_int;
 	bool	_flag_float;

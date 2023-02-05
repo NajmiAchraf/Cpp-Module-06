@@ -108,7 +108,21 @@ re : fclean all
 
 run : re
 	$(T_RUN_S)
-	./$(NAME)
+	./$(NAME) 0
+	./$(NAME) 42
+	./$(NAME) 42.42
+	./$(NAME) 42.42f
+	./$(NAME) -42.42f
+	./$(NAME) -42.42
+	./$(NAME) -42
+	./$(NAME) inf
+	./$(NAME) inff
+	./$(NAME) -inf
+	./$(NAME) -inff
+	./$(NAME) +inf
+	./$(NAME) +inff
+	./$(NAME) nan
+	./$(NAME) nanf
 	$(T_RUN_E)
 
 .PHONY : all clean fclean re run
