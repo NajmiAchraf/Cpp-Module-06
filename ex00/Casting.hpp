@@ -1,5 +1,5 @@
-#ifndef CONVERT_HPP
-#define CONVERT_HPP
+#ifndef CASTING_HPP
+#define CASTING_HPP
 
 #include <iostream>
 #include <exception>
@@ -15,7 +15,7 @@ using std::string;
 #define C_GREEN	"\033[1;32m"
 #define C_CYAN	"\033[1;36m"
 
-class Convert {
+class Casting {
 
 private:
 
@@ -39,29 +39,31 @@ public:
 	float	getFloat() const;
 	double	getDouble() const;
 
-	void	setStr(string str);
-	// void	setChar();
-	// void	setInt();
-	// void	setFloat();
-	// void	setDouble();
+	int		getType() const;
+	int		getFlagChar() const;
+	bool	getFlagInt() const;
+	bool	getFlagFloat() const;
+	bool	getFlagDouble() const;
 
-	Convert();
-	Convert(string str);
-	Convert(Convert const & convert);
-	Convert &operator = (Convert const & convert);
-	~Convert();
+	Casting();
+	Casting(string str);
+	Casting(Casting const & casting);
+	Casting &operator = (Casting const & casting);
+	~Casting();
+
+	char	toChar(string str);
+	int		toInt(string str);
+	float	toFloat(string str);
+	double	toDouble(string str);
 
 	void	fillChar(string str);
 	void	fillInt(string str);
 	void	fillFloat(string str);
 	void	fillDouble(string str);
 
-	// void	convertToChar();
-	// void	convertToInt();
-	// void	convertToFloat();
-	// void	convertToDouble();
-
-	void	checkStringPass(string str);
+	void	fillTheType(string str);
+	void	castTheType();
+	void	checkStringType(string str);
 	void	printAll();
 
 	class ImpossibleException : public std::exception {
@@ -77,5 +79,7 @@ public:
 	};
 
 };
+
+std::ostream &operator << (std::ostream &out, Casting const &cast);
 
 #endif

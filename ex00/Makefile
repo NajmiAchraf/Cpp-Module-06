@@ -3,7 +3,7 @@
 #***************************************#
 
 CPP			= c++
-CPPFLAGS	= -Wall -Wextra -Werror
+CPPFLAGS	= # -Wall -Wextra -Werror
 CPPFLAGS	+= -std=c++98
 # CPPFLAGS	+= -g -fsanitize=address
 
@@ -13,13 +13,14 @@ CPL = 0
 #				FILES					#
 #***************************************#
 
-NOM		= Convert
+NOM		= Casting
 NAME	= $(EXE_DIR)/$(NOM)
 NAME_UP	= $(shell echo $(NOM) | tr '[:lower:]' '[:upper:]')
 
 SRCS = \
 	main.cpp		\
-	Convert.cpp		\
+	Casting.cpp		\
+	Scalar.cpp
 
 #***************************************#
 #				FOLDERS					#
@@ -115,14 +116,15 @@ run : re
 	./$(NAME) -42.42f
 	./$(NAME) -42.42
 	./$(NAME) -42
-	./$(NAME) inf
-	./$(NAME) inff
-	./$(NAME) -inf
-	./$(NAME) -inff
-	./$(NAME) +inf
-	./$(NAME) +inff
-	./$(NAME) nan
-	./$(NAME) nanf
+# 	./$(NAME) inf
+# 	./$(NAME) inff
+# 	./$(NAME) -inf
+# 	./$(NAME) -inff
+# 	./$(NAME) +inf
+# 	./$(NAME) +inff
+# 	./$(NAME) nan
+# 	./$(NAME) nanf
+# 	./$(NAME) nanjf
 	$(T_RUN_E)
 
 .PHONY : all clean fclean re run

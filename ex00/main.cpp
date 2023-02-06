@@ -1,11 +1,15 @@
-#include "Convert.hpp"
+#include "Casting.hpp"
+#include "Scalar.hpp"
 
-int main(int argc, char **argv) {
-	if (argc != 2) {
+int main(int ac, char **av) {
+	if (ac != 2) {
 		cout << "Error: Wrong number of arguments" << endl;
 		return 1;
 	}
-	Convert convert(argv[1]);
-	convert.printAll();
+	// Casting casting(av[1]);
+	// cout << casting << endl;
+	Scalar scalar(av[1]);
+
+	std::cout << scalar;
 	return 0;
 }
