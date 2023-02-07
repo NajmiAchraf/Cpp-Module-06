@@ -45,7 +45,19 @@ int		Casting::StringToInt() const {
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');
-		else
+		else if (this->_str[i] == '.' && this->_str[len - 1] == 'f') {
+			for (i++ ; i < len - 1; i++) {
+				if (!isdigit(this->_str[i]))
+					throw ImpossibleException();
+			}
+			break;
+		} else if (this->_str[i] == '.') {
+			for (i++ ; i < len; i++) {
+				if (!isdigit(this->_str[i]))
+					throw ImpossibleException();
+			}
+			break;
+		} else
 			throw ImpossibleException();
 		i++;
 	}
@@ -79,13 +91,14 @@ float	Casting::StringToFloat() const {
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');
-		else if (this->_str[i] == '.' || (this->_str[i] == 'f' && i == len - 1)) {
+		else if (this->_str[i] == '.') {
 			i++;
 			while (i < len) {
 				if (isdigit(this->_str[i])) {
 					dec = dec * 10 + (this->_str[i] - '0');
 					decLen++;
-				}
+				} else if (this->_str[i] == 'f' && i == len - 1)
+					break;
 				else
 					throw ImpossibleException();
 				i++;
@@ -131,7 +144,8 @@ double	Casting::StringToDouble() const {
 				if (isdigit(this->_str[i]) || (this->_str[i] == 'f' && i == len - 1)) {
 					dec = dec * 10 + (this->_str[i] - '0');
 					decLen++;
-				}
+				} else if (this->_str[i] == 'f' && i == len - 1)
+					break;
 				else
 					throw ImpossibleException();
 				i++;
@@ -214,7 +228,7 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 		if (isnan(f) && signbit(f))
 			out << "-";
 		out << f;
-		if (!isnan(f) && f - (int)f == 0)
+		if (!isnan(f) && f - static_cast<int>(f) == 0)
 			out << ".0";
 		out << "f" << std::endl;
 	} catch(std::exception& e) {
@@ -227,14 +241,11 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 		if (isnan(d) && signbit(d))
 			out << "-";
 		out << d;
-		if (!isnan(d) && d - (int)d == 0)
+		if (!isnan(d) && d - static_cast<int>(d) == 0)
 			out << ".0";
 		out << std::endl;
 	} catch(std::exception& e) {
 		out << e.what() << endl;
 	}
-	
-
-
 	return out;
 }

@@ -115,15 +115,15 @@ run : re
 	./$(NAME) -42.42f
 	./$(NAME) -42.42
 	./$(NAME) -42
-# 	./$(NAME) inf
-# 	./$(NAME) inff
-# 	./$(NAME) -inf
-# 	./$(NAME) -inff
-# 	./$(NAME) +inf
-# 	./$(NAME) +inff
-# 	./$(NAME) nan
-# 	./$(NAME) nanf
-# 	./$(NAME) nanjf
+	./$(NAME) inf
+	./$(NAME) inff
+	./$(NAME) -inf
+	./$(NAME) -inff
+	./$(NAME) +inf
+	./$(NAME) +inff
+	./$(NAME) nan
+	./$(NAME) nanf
+	./$(NAME) nanjf
 	$(T_RUN_E)
 
 .PHONY : all clean fclean re run
