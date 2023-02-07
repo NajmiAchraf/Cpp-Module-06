@@ -141,7 +141,7 @@ double	Casting::StringToDouble() const {
 		else if (this->_str[i] == '.') {
 			i++;
 			while (i < len) {
-				if (isdigit(this->_str[i]) || (this->_str[i] == 'f' && i == len - 1)) {
+				if (isdigit(this->_str[i])) {
 					dec = dec * 10 + (this->_str[i] - '0');
 					decLen++;
 				} else if (this->_str[i] == 'f' && i == len - 1)
