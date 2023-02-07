@@ -35,6 +35,7 @@ int		Casting::StringToInt() const {
 	int		len = this->_str.length();
 	int		sign = 1;
 	int		num = 0;
+	int		digit_existence = 0;
 
 	if (this->_str[i] == '-') {
 		sign = -1;
@@ -42,6 +43,8 @@ int		Casting::StringToInt() const {
 	}
 	else if (this->_str[i] == '+')
 		i++;
+	if (this->_str[i] == '\0')
+		throw Casting::ImpossibleException();
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');
@@ -88,6 +91,8 @@ float	Casting::StringToFloat() const {
 	}
 	else if (this->_str[i] == '+')
 		i++;
+	if (this->_str[i] == '\0')
+		throw Casting::ImpossibleException();
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');
@@ -135,6 +140,8 @@ double	Casting::StringToDouble() const {
 	}
 	else if (this->_str[i] == '+')
 		i++;
+	if (this->_str[i] == '\0')
+		throw Casting::ImpossibleException();
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');

@@ -6,6 +6,6 @@ int main(int ac, char **av) {
 		return 1;
 	}
 	Casting casting(av[1]);
-	cout << casting << endl;
+	cout << casting;
 	return 0;
 }
