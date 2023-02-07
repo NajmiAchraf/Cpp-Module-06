@@ -20,51 +20,24 @@ class Casting {
 private:
 
 	string	_str;
-	char	_char;
-	int		_int;
-	float	_float;
-	double	_double;
-
-	int		_type; // 0 = char, 1 = int, 2 = float, 3 = double
-	int		_flag_char;
-	bool	_flag_int;
-	bool	_flag_float;
-	bool	_flag_double;
 
 public:
 
 	string	getStr() const;
-	char	getChar() const;
-	int		getInt() const;
-	float	getFloat() const;
-	double	getDouble() const;
-
-	int		getType() const;
-	int		getFlagChar() const;
-	bool	getFlagInt() const;
-	bool	getFlagFloat() const;
-	bool	getFlagDouble() const;
-
 	Casting();
 	Casting(string str);
 	Casting(Casting const & casting);
 	Casting &operator = (Casting const & casting);
 	~Casting();
 
-	char	toChar(string str);
-	int		toInt(string str);
-	float	toFloat(string str);
-	double	toDouble(string str);
+	int		StringToInt() const;
+	float	StringToFloat() const;
+	double	StringToDouble() const;
 
-	void	fillChar(string str);
-	void	fillInt(string str);
-	void	fillFloat(string str);
-	void	fillDouble(string str);
-
-	void	fillTheType(string str);
-	void	castTheType();
-	void	checkStringType(string str);
-	void	printAll();
+	char	getChar() const;
+	int		getInt() const;
+	float	getFloat() const;
+	double	getDouble() const;
 
 	class ImpossibleException : public std::exception {
 		virtual const char* what() const throw() {

@@ -19,8 +19,7 @@ NAME_UP	= $(shell echo $(NOM) | tr '[:lower:]' '[:upper:]')
 
 SRCS = \
 	main.cpp		\
-	Casting.cpp		\
-	Scalar.cpp
+	Casting.cpp
 
 #***************************************#
 #				FOLDERS					#
