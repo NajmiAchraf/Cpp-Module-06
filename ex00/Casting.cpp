@@ -35,7 +35,6 @@ int		Casting::StringToInt() const {
 	int		len = this->_str.length();
 	int		sign = 1;
 	int		num = 0;
-	int		digit_existence = 0;
 
 	if (this->_str[i] == '-') {
 		sign = -1;

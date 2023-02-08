@@ -6,19 +6,11 @@
 using std::cout;
 using std::endl;
 
-class Data {
+struct Data {
 
-private:
 
 	int		_int;
 	char	_char;
-
-public:
-
-	Data();
-	Data(Data const &data);
-	Data &operator=(Data const &data);
-	~Data();
 
 };
 

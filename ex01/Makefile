@@ -3,7 +3,7 @@
 #***************************************#
 
 CPP			= c++
-CPPFLAGS	= # -Wall -Wextra -Werror
+CPPFLAGS	= -Wall -Wextra -Werror
 CPPFLAGS	+= -std=c++98
 # CPPFLAGS	+= -g -fsanitize=address
 
@@ -18,8 +18,7 @@ NAME	= $(EXE_DIR)/$(NOM)
 NAME_UP	= $(shell echo $(NOM) | tr '[:lower:]' '[:upper:]')
 
 SRCS = \
-	main.cpp	\
-	Data.cpp
+	main.cpp
 
 #***************************************#
 #				FOLDERS					#

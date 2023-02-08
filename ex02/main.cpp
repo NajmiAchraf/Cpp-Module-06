@@ -19,20 +19,31 @@ Base *generate(void) {
 
 void identify(Base *p) {
 	if (dynamic_cast<A*>(p))
-		cout << "A" << endl;
+		cout << "pointer A" << endl;
 	else if (dynamic_cast<B*>(p))
-		cout << "B" << endl;
+		cout << "pointer B" << endl;
 	else if (dynamic_cast<C*>(p))
-		cout << "C" << endl;
+		cout << "pointer C" << endl;
 }
 
 void identify(Base &p) {
-	if (dynamic_cast<A*>(&p))
-		cout << "A" << endl;
-	else if (dynamic_cast<B*>(&p))
-		cout << "B" << endl;
-	else if (dynamic_cast<C*>(&p))
-		cout << "C" << endl;
+	try {
+		A &a = dynamic_cast<A &>(p);
+		cout << "reference A" << endl;
+		(void)a;
+		
+	} catch(...) {} // {cout << "reference A faild" << endl;}
+	try {
+		B &b = dynamic_cast<B &>(p);
+		cout << "reference B" << endl;
+		(void)b;
+	} catch(...) {} // {cout << "reference B faild" << endl;}
+	try {
+		C &c = dynamic_cast<C &>(p);
+		cout << "reference C" << endl;
+		(void)c;
+	} catch(...) {} // {cout << "reference C faild" << endl;}
+
 }
 
 int main() {

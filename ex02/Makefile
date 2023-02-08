@@ -3,7 +3,7 @@
 #***************************************#
 
 CPP			= c++
-CPPFLAGS	= # -Wall -Wextra -Werror
+CPPFLAGS	= -Wall -Wextra -Werror
 CPPFLAGS	+= -std=c++98
 # CPPFLAGS	+= -g -fsanitize=address
 
