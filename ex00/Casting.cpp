@@ -30,6 +30,12 @@ Casting::~Casting() {
 	cout << C_RED <<"Destructor" << C_RES << endl;
 }
 
+char	Casting::StringToChar() const {
+	if (this->_str.length() == 1) {
+		
+	}
+}
+
 int		Casting::StringToInt() const {
 	int		i = 0;
 	int		len = this->_str.length();

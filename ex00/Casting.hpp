@@ -30,6 +30,7 @@ public:
 	Casting &operator = (Casting const & casting);
 	~Casting();
 
+	char	StringToChar() const;
 	int		StringToInt() const;
 	float	StringToFloat() const;
 	double	StringToDouble() const;

@@ -10,101 +10,72 @@ int main(int ac, char **av) {
 	return 0;
 }
 
-/*
-#include <iostream>
-#include <cstring>
-#include <cmath>
-#include <cstdlib>
 
-using namespace std;
-
-bool checkDouble(string s) {
-	int decimal = 0;
-	for (int i = 0; i < s.size(); i++) {
-		if (!isdigit(s[i]) && s[i] != '.') {
-			return false;
+int main(int ac, char **av)
+{
+	if (ac != 2)
+	{
+		std::cout << "Error: invalid number of arguments" << std::endl;
+		return 1;
+	}
+	std::string str(av[1]);
+	// char
+	if (str.length() == 1)
+	{
+		std::cout << "char: ";
+		if (isdigit(str[0]) || (static_cast<int>(str[0]) >= 32 && static_cast<int>(str[0]) <= 126))
+			std::cout << "\'" << str[0] << "\'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
+		std::cout << "int: " << (isdigit(str[0]) ? static_cast<int>(str[0]) - 48 : static_cast<int>(str[0])) << std::endl;
+		std::cout << "float: " << (isdigit(str[0]) ? static_cast<float>(str[0]) - 48 : static_cast<float>(str[0])) << ".0f" << std::endl;
+		std::cout << "double: " << (isdigit(str[0]) ? static_cast<double>(str[0]) - 48 : static_cast<double>(str[0])) << ".0" << std::endl;
+	}
+	// int
+	else if (str.find_first_not_of("0123456789-") == std::string::npos)
+	{
+		std::cout << "char: ";
+		if (static_cast<char>(atoi(av[1])) >= 32 && static_cast<char>(atoi(av[1])) <= 126)
+			std::cout << "\'" << static_cast<char>(atoi(av[1])) << "\'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
+		std::cout << "int: " << atoi(av[1]) << std::endl;
+		std::cout << "float: " << static_cast<float>(atoi(av[1])) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(atoi(av[1])) << ".0" << std::endl;
+	}
+	// float
+	else if (str == "nan" || str == "-inf" || str == "+inf" || str == "-inff" || str == "+inff" || str == "nanf" || str.find_first_not_of("0123456789.-f") == std::string::npos)
+	{
+		if (str == "nan" || str == "-inf" || str == "+inf")
+		{
+			std::cout << "char: impossible" << std::endl;
+			std::cout << "int: impossible" << std::endl;
+			std::cout << "float: " << str << "f" << std::endl;
+			std::cout << "double: " << str << std::endl;
 		}
-		if (s[i] == '.') {
-			decimal++;
+		else if (str == "-inff" || str == "+inff" || str == "nanf")
+		{
+			std::cout << "char: impossible" << std::endl;
+			std::cout << "int: impossible" << std::endl;
+			std::cout << "float: " << str << std::endl;
+			str.resize(4);
+			std::cout << "double: " << str << std::endl;
 		}
-		if (decimal > 1) {
-			return false;
+		else
+		{
+			std::cout << "char: ";
+			if (static_cast<int>(atof(av[1])) >= 32 && static_cast<int>(atof(av[1])) <= 126)
+				std::cout << "\'" << static_cast<char>(atof(av[1])) << "\'" << std::endl;
+			else
+				std::cout << "Non displayable" << std::endl;
+			std::cout << "int: " << static_cast<int>(atof(av[1])) << std::endl;
+			std::cout << "float: " << atof(av[1]) << ((atof(av[1]) == roundf(atof(av[1]))) ? ".0" : "") << "f" << std::endl;
+			std::cout << "double: " << static_cast<double>(atof(av[1])) << (static_cast<double>(atof(av[1])) == roundl(static_cast<double>(atof(av[1]))) ? ".0" : "") << std::endl;
 		}
 	}
-	return true;
-}
-
-bool checkInt(string s) {
-	for (int i = 0; i < s.size(); i++) {
-		if (!isdigit(s[i])) {
-			return false;
-		}
-	}
-	return true;
-}
-
-bool checkChar(string s) {
-	if (s.size() == 1) {
-		int num = atoi(s.c_str());
-		if (num >= 0 && num <= 255) {
-			return true;
-		}
-	}
-	return false;
-}
-
-string checkType(string s) {
-	if (checkChar(s)) {
-		return "char";
-	} else if (checkInt(s)) {
-		return "int";
-	} else if (checkDouble(s)) {
-		return "double";
-	} else {
-		return "string";
+	else
+	{
+		std::cout << "Error: invalid argument" << std::endl;
+		return 1;
 	}
 }
-
-int main() {
-	string input;
-	cin >> input;
-	cout << checkType(input) << endl;
-	return 0;
-}
-*/
-
-// #include <iostream>
-// #include <string>
-// #include <sstream>
-
-// using namespace std;
-
-// int main() {
-//   string input;
-//   cout << "Enter a number: ";
-//   cin >> input;
-
-//   char c = input[input.length() - 1];
-//   if (c == 'f') {
-//     float value;
-//     stringstream ss(input);
-//     ss >> value;
-//     cout << "The input is a float: " << value << endl;
-//   } else if (c == '.') {
-//     double value;
-//     stringstream ss(input);
-//     ss >> value;
-//     cout << "The input is a double: " << value << endl;
-//   } else {
-//     int value;
-//     stringstream ss(input);
-//     ss >> value;
-//     if (value >= 0 && value <= 255) {
-//       cout << "The input is a char: " << (char)value << endl;
-//     } else {
-//       cout << "The input is an int: " << value << endl;
-//     }
-//   }
-
-//   return 0;
-// }
