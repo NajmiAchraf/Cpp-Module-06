@@ -1,14 +1,14 @@
 #include "Casting.hpp"
 
-int main(int ac, char **av) {
-	if (ac != 2) {
-		cout << "Error: Wrong number of arguments" << endl;
-		return 1;
-	}
-	Casting casting(av[1]);
-	cout << casting;
-	return 0;
-}
+// int main(int ac, char **av) {
+// 	if (ac != 2) {
+// 		cout << "Error: Wrong number of arguments" << endl;
+// 		return 1;
+// 	}
+// 	Casting casting(av[1]);
+// 	cout << casting;
+// 	return 0;
+// }
 
 
 int main(int ac, char **av)
@@ -20,10 +20,10 @@ int main(int ac, char **av)
 	}
 	std::string str(av[1]);
 	// char
-	if (str.length() == 1)
+	if (str.find_first_not_of("0123456789") == std::string::npos && isascii(static_cast<int>(atoi(av[1]))))
 	{
 		std::cout << "char: ";
-		if (isdigit(str[0]) || (static_cast<int>(str[0]) >= 32 && static_cast<int>(str[0]) <= 126))
+		if (isprint(static_cast<int>(atoi(av[1]))))
 			std::cout << "\'" << str[0] << "\'" << std::endl;
 		else
 			std::cout << "Non displayable" << std::endl;
