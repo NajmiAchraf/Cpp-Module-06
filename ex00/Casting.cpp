@@ -59,9 +59,7 @@ Casting::Casting(string str) : _str(str) {
 		_isInt = true;
 		_isFloat = true;
 		_isDouble = true;
-	} catch (std::exception &e) {
-		cout << e.what() << endl;
-	}
+	} catch (...) {}
 }
 
 Casting::Casting(Casting const & Casting) {
@@ -312,7 +310,18 @@ int		Casting::checkType() {
 
 void	Casting::fillType() {
 	this->_type = this->checkType();
-	cout << "type: " << this->_type << endl;
+	cout << "type: ";
+	if (this->_type == 0)
+		cout << "char";
+	else if (this->_type == 1)
+		cout << "int";
+	else if (this->_type == 2)
+		cout << "float";
+	else if (this->_type == 3)
+		cout << "double";
+	else
+		cout << "impossible";
+	cout << endl;
 	try {
 		if (this->_type == 0) {
 			this->_char = this->getChar();
