@@ -124,6 +124,8 @@ run : re
 	./$(NAME) nan
 	./$(NAME) nanf
 	./$(NAME) nanjf
+	./$(NAME) 90h
+	./$(NAME) 90.l
 	$(T_RUN_E)
 
 .PHONY : all clean fclean re run

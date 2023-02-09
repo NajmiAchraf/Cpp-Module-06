@@ -288,11 +288,11 @@ int		Casting::checkType() {
 		i++;
 	}
 	if (decLen > 0) {
-		if (this->_str[len - 1] == 'f')
+		if (this->_str[len - 1] == 'f'  && i == len - 1)
 			type = 2;
-		else
+		else if (i == len)
 			type = 3;
-	} else if (num > 0) {
+	} else if (num > 0 && i == len) {
 		if (len == 1)
 			type = 0;
 		else
