@@ -117,6 +117,8 @@ run : re
 	./$(NAME) -42.42f
 	./$(NAME) -42.42
 	./$(NAME) -42
+	./$(NAME) -158
+	./$(NAME) -159
 	./$(NAME) inf
 	./$(NAME) inff
 	./$(NAME) -inf
@@ -128,6 +130,12 @@ run : re
 	./$(NAME) nanjf
 	./$(NAME) 90h
 	./$(NAME) 90.l
+	./$(NAME) d
+	./$(NAME) 2147483647
+	./$(NAME) 2147483648
+	./$(NAME) -2147483648
+	./$(NAME) -2147483649
+	./$(NAME) 20321
 	$(T_RUN_E)
 
 .PHONY : all clean fclean re run

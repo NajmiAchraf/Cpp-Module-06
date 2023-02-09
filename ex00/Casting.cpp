@@ -367,7 +367,8 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 
 	out << "char: ";
 	try {
-		out << cast.getChar() << endl;
+		char c = cast.getChar();
+		out << "'" << c << "'" << endl;
 	} catch (std::exception &e) {
 		out << e.what() << endl;
 	}
