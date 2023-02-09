@@ -1,5 +1,47 @@
 #include "Casting.hpp"
 
+char	Casting::getChar() const {
+	if (this->_isChar) {
+		try {
+			if (!isascii(static_cast<int>(this->_char)))
+				throw Casting::ImpossibleException();
+		} catch (...) {
+			throw Casting::ImpossibleException();
+		}
+		if (!isprint(static_cast<int>(this->_char)))
+			throw Casting::NonDisplayableException();
+		return this->_char;
+	}
+	else
+		throw Casting::ImpossibleException();
+	return this->_char;
+}
+
+int		Casting::getInt() const {
+	if (this->_isInt)
+		return this->_int;
+	else
+		throw ImpossibleException();
+
+	return this->_int;
+}
+
+float	Casting::getFloat() const {
+	if (this->_isFloat)
+		return this->_float;
+	else
+		throw ImpossibleException();
+	return this->_float;
+}
+
+double	Casting::getDouble() const {
+	if (this->_isDouble)
+		return this->_double;
+	else
+		throw ImpossibleException();
+	return this->_double;
+}
+
 string	Casting::getStr() const {
 	return this->_str;
 }
@@ -11,6 +53,15 @@ Casting::Casting() {
 Casting::Casting(string str) : _str(str) {
 	cout << C_GREEN << "Parameterize constructor" << endl
 		<< C_CYAN << "The entred string is : " << _str << C_RES << endl;
+	try {
+		fillType();
+		_isChar = true;
+		_isInt = true;
+		_isFloat = true;
+		_isDouble = true;
+	} catch (std::exception &e) {
+		cout << e.what() << endl;
+	}
 }
 
 Casting::Casting(Casting const & Casting) {
@@ -30,13 +81,7 @@ Casting::~Casting() {
 	cout << C_RED <<"Destructor" << C_RES << endl;
 }
 
-// char	Casting::StringToChar() const {
-// 	if (this->_str.length() == 1) {
-
-// 	}
-// }
-
-int		Casting::StringToInt() const {
+int		Casting::StringToInt() {
 	int		i = 0;
 	int		len = this->_str.length();
 	int		sign = 1;
@@ -72,7 +117,7 @@ int		Casting::StringToInt() const {
 	return (num * sign);
 }
 
-float	Casting::StringToFloat() const {
+float	Casting::StringToFloat() {
 	int		i = 0;
 	int		len = this->_str.length();
 	int		sign = 1;
@@ -122,7 +167,7 @@ float	Casting::StringToFloat() const {
 	return ((num + (dec / pow(10, decLen))) * sign);
 }
 
-double	Casting::StringToDouble() const {
+double	Casting::StringToDouble() {
 	int		i = 0;
 	int		len = this->_str.length();
 	int		sign = 1;
@@ -171,22 +216,11 @@ double	Casting::StringToDouble() const {
 	return ((num + (dec / pow(10, decLen))) * sign);
 }
 
-char	Casting::getChar() const {
-	int	c;
-
-	try {
-		c = this->StringToInt();
-		if (!isascii(c))
-			throw Casting::ImpossibleException();
-	} catch (...) {
-		throw Casting::ImpossibleException();
-	}
-	if (!isprint(c))
-		throw Casting::NonDisplayableException();
-	return static_cast<char>(c);
+char	Casting::getChar() {
+	return static_cast<char>(this->StringToInt());
 }
 
-int		Casting::getInt() const {
+int		Casting::getInt() {
 	int	i;
 
 	try {
@@ -194,10 +228,10 @@ int		Casting::getInt() const {
 	} catch (...) {
 		throw Casting::ImpossibleException();
 	}
-	return i;
+	return static_cast<int>(i);
 }
 
-float	Casting::getFloat() const {
+float	Casting::getFloat() {
 	float	f;
 
 	try {
@@ -205,10 +239,10 @@ float	Casting::getFloat() const {
 	} catch (...) {
 		throw Casting::ImpossibleException();
 	}
-	return f;
+	return static_cast<float>(f);
 }
 
-double	Casting::getDouble() const {
+double	Casting::getDouble() {
 	double	d;
 
 	try {
@@ -216,8 +250,106 @@ double	Casting::getDouble() const {
 	} catch (...) {
 		throw Casting::ImpossibleException();
 	}
-	return d;
+	return static_cast<double>(d);
 }
+
+
+int		Casting::checkType() {
+	int i = 0;
+	int len = this->_str.length();
+	bool point = false;
+	int num = 0;
+	int decLen = 0;
+	int type = -1; // 0: char, 1: int, 2: float, 3: double
+
+	if (this->_str[i] == '-' || this->_str[i] == '+')
+		i++;
+	if (this->_str[i] == '\0')
+		return type;
+	while (i < len) {
+		if (isdigit(this->_str[i]))
+			num++;
+		else if (this->_str[i] == '.') {
+			if (point || i == len - 1)
+				break;
+			point = true;
+			i++;
+			while (i < len) {
+				if (isdigit(this->_str[i])) {
+					decLen++;
+				} else if (this->_str[i] == 'f' && i == len - 1)
+					break;
+				else
+					break;
+				i++;
+			}
+			break;
+		}
+		else
+			break;
+		i++;
+	}
+	if (decLen > 0) {
+		if (this->_str[len - 1] == 'f')
+			type = 2;
+		else
+			type = 3;
+	} else if (num > 0) {
+		if (len == 1)
+			type = 0;
+		else
+			type = 1;
+	}
+	if (type == -1) {
+		if (this->_str == "+inff" || this->_str == "-inff" || this->_str == "nanf")
+			type = 2;
+		else if (this->_str == "+inf" || this->_str == "-inf" || this->_str == "nan")
+			type = 3;
+	}
+	return type;
+}
+
+
+void	Casting::fillType() {
+	this->_type = this->checkType();
+	cout << "type: " << this->_type << endl;
+	try {
+		if (this->_type == 0) {
+			this->_char = this->getChar();
+			this->_int = static_cast<int>(this->_char);
+			this->_float = static_cast<float>(this->_char);
+			this->_double = static_cast<double>(this->_char);
+		} else if (this->_type == 1) {
+			this->_int = this->getInt();
+			this->_char = static_cast<char>(this->_int);
+			this->_float = static_cast<float>(this->_int);
+			this->_double = static_cast<double>(this->_int);
+		} else if (this->_type == 2) {
+			this->_float = this->getFloat();
+			this->_char = static_cast<char>(this->_float);
+			this->_int = static_cast<int>(this->_float);
+			this->_double = static_cast<double>(this->_float);
+		} else if (this->_type == 3) {
+			this->_double = this->getDouble();
+			this->_char = static_cast<char>(this->_double);
+			this->_int = static_cast<int>(this->_double);
+			this->_float = static_cast<float>(this->_double);
+		} else {
+			_isChar = false;
+			_isInt = false;
+			_isFloat = false;
+			_isDouble = false;
+			throw Casting::ImpossibleException();
+		}
+	} catch (std::exception &e) {
+		_isChar = false;
+		_isInt = false;
+		_isFloat = false;
+		_isDouble = false;
+		throw Casting::ImpossibleException();
+	}
+}
+
 
 std::ostream &operator << (std::ostream &out, Casting const &cast) {
 
@@ -235,10 +367,10 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 	}
 	out << "float: ";
 	try {
-		double f = cast.getFloat();
+		float f = cast.getFloat();
 
-		if (isnan(f) && signbit(f))
-			out << "-";
+		// if (isnan(f) && signbit(f))
+		// 	out << "-";
 		out << f;
 		if (!isnan(f) && f - static_cast<int>(f) == 0)
 			out << ".0";
@@ -250,8 +382,8 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 	try {
 		double d = cast.getDouble();
 
-		if (isnan(d) && signbit(d))
-			out << "-";
+		// if (isnan(d) && signbit(d))
+		// 	out << "-";
 		out << d;
 		if (!isnan(d) && d - static_cast<int>(d) == 0)
 			out << ".0";
