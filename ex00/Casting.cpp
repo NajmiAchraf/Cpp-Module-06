@@ -1,9 +1,13 @@
 #include "Casting.hpp"
 
+string	Casting::getStr() const {
+	return this->_str;
+}
+
 char	Casting::getChar() const {
 	if (this->_flag) {
 		try {
-			if (!isascii(static_cast<int>(this->_char)))
+			if (!isascii(static_cast<int>(this->_char)) || this->checkInfNan() == true)
 				throw Casting::ImpossibleException();
 		} catch (...) {
 			throw Casting::ImpossibleException();
@@ -18,11 +22,10 @@ char	Casting::getChar() const {
 }
 
 int		Casting::getInt() const {
-	if (this->_flag)
+	if (this->_flag && this->checkInfNan() == false)
 		return this->_int;
 	else
 		throw ImpossibleException();
-
 	return this->_int;
 }
 
@@ -40,10 +43,6 @@ double	Casting::getDouble() const {
 	else
 		throw ImpossibleException();
 	return this->_double;
-}
-
-string	Casting::getStr() const {
-	return this->_str;
 }
 
 Casting::Casting() {
@@ -120,16 +119,8 @@ float	Casting::StringToFloat() {
 	int		dec = 0;
 	int		decLen = 0;
 
-
-	if (this->_str == "-inff" || this->_str == "+inff" || this->_str == "nanf" 
-		|| this->_str == "-inf" || this->_str == "+inf" || this->_str == "nan") {
-		if (this->_str == "-inff" || this->_str == "-inf")
-			return (-1.0 / 0.0);
-		else if (this->_str == "+inff" || this->_str == "+inf")
-			return (1.0 / 0.0);
-		else if (this->_str == "nanf" || this->_str == "nan")
-			return (0.0 / 0.0);
-	}
+	if (this->checkInfNan() == true)
+		return this->floatInfNan();
 	if (this->_str[i] == '-') {
 		sign = -1;
 		i++;
@@ -170,15 +161,8 @@ double	Casting::StringToDouble() {
 	int		dec = 0;
 	int		decLen = 0;
 
-	if (this->_str == "-inff" || this->_str == "+inff" || this->_str == "nanf" 
-		|| this->_str == "-inf" || this->_str == "+inf" || this->_str == "nan") {
-		if (this->_str == "-inff" || this->_str == "-inf")
-			return (-1.0 / 0.0);
-		else if (this->_str == "+inff" || this->_str == "+inf")
-			return (1.0 / 0.0);
-		else if (this->_str == "nanf" || this->_str == "nan")
-			return (0.0 / 0.0);
-	}
+	if (this->checkInfNan() == true)
+		return this->doubleInfNan();
 	if (this->_str[i] == '-') {
 		sign = -1;
 		i++;
@@ -209,6 +193,34 @@ double	Casting::StringToDouble() {
 		i++;
 	}
 	return ((num + (dec / pow(10, decLen))) * sign);
+}
+
+bool	Casting::checkInfNan() const{
+	if (this->_str == "-inff" || this->_str == "+inff" || this->_str == "nanf" 
+		|| this->_str == "-inf" || this->_str == "+inf" || this->_str == "nan") {
+		return true;
+	}
+	return false;
+}
+
+float	Casting::floatInfNan() {
+	if (this->_str == "-inff" || this->_str == "-inf")
+		return (-1.0 / 0.0);
+	else if (this->_str == "+inff" || this->_str == "+inf")
+		return (1.0 / 0.0);
+	else if (this->_str == "nanf" || this->_str == "nan")
+		return (0.0 / 0.0);
+	return (0.0);
+}
+
+double	Casting::doubleInfNan() {
+	if (this->_str == "-inff" || this->_str == "-inf")
+		return (-1.0 / 0.0);
+	else if (this->_str == "+inff" || this->_str == "+inf")
+		return (1.0 / 0.0);
+	else if (this->_str == "nanf" || this->_str == "nan")
+		return (0.0 / 0.0);
+	return (0.0);
 }
 
 char	Casting::getChar() {

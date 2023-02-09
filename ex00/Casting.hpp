@@ -29,12 +29,12 @@ private:
 
 public:
 
+	string	getStr() const;
 	char	getChar() const;
 	int		getInt() const;
 	float	getFloat() const;
 	double	getDouble() const;
 
-	string	getStr() const;
 	Casting();
 	Casting(string str);
 	Casting(Casting const & casting);
@@ -46,13 +46,17 @@ public:
 	float	StringToFloat();
 	double	StringToDouble();
 
-	int		checkType();
-	void	fillType();
+	bool	checkInfNan() const;
+	float	floatInfNan();
+	double	doubleInfNan();
 
 	char	getChar();
 	int		getInt();
 	float	getFloat();
 	double	getDouble();
+
+	int		checkType();
+	void	fillType();
 
 	class ImpossibleException : public std::exception {
 		virtual const char* what() const throw() {
