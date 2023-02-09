@@ -2,6 +2,7 @@
 #define DATA_HPP
 
 #include <iostream>
+#include <cstdint>
 
 using std::cout;
 using std::endl;

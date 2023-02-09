@@ -4,7 +4,7 @@
 
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror
-CPPFLAGS	+= -std=c++98
+# CPPFLAGS	+= -std=c++98
 # CPPFLAGS	+= -g -fsanitize=address
 
 CPL = 0
