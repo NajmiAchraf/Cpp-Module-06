@@ -79,7 +79,7 @@ int		Casting::StringToInt() {
 	int		i = 0;
 	int		len = this->_str.length();
 	int		sign = 1;
-	int		num = 0;
+	long	num = 0;
 
 	if (this->_str[i] == '-') {
 		sign = -1;
@@ -92,23 +92,11 @@ int		Casting::StringToInt() {
 	while (i < len) {
 		if (isdigit(this->_str[i]))
 			num = num * 10 + (this->_str[i] - '0');
-		else if (this->_str[i] == '.' && this->_str[len - 1] == 'f') {
-			for (i++ ; i < len - 1; i++) {
-				if (!isdigit(this->_str[i]))
-					throw ImpossibleException();
-			}
-			break;
-		} else if (this->_str[i] == '.') {
-			for (i++ ; i < len; i++) {
-				if (!isdigit(this->_str[i]))
-					throw ImpossibleException();
-			}
-			break;
-		} else
+		else
 			throw ImpossibleException();
 		i++;
 	}
-	return (num * sign);
+	return (static_cast<int>(num * sign));
 }
 
 float	Casting::StringToFloat() {
@@ -196,29 +184,29 @@ double	Casting::StringToDouble() {
 }
 
 bool	Casting::checkInfNan() const{
-	if (this->_str == "-inff" || this->_str == "+inff" || this->_str == "nanf" 
-		|| this->_str == "-inf" || this->_str == "+inf" || this->_str == "nan") {
+	if (this->_str == "-inff" || this->_str == "inff" ||this->_str == "+inff" || this->_str == "nanf" 
+		|| this->_str == "-inf" || this->_str == "inf" ||this->_str == "+inf" || this->_str == "nan") {
 		return true;
 	}
 	return false;
 }
 
 float	Casting::floatInfNan() {
-	if (this->_str == "-inff" || this->_str == "-inf")
+	if (this->_str == "-inff")
 		return (-1.0 / 0.0);
-	else if (this->_str == "+inff" || this->_str == "+inf")
+	else if (this->_str == "inff" ||this->_str == "+inff")
 		return (1.0 / 0.0);
-	else if (this->_str == "nanf" || this->_str == "nan")
+	else if (this->_str == "nanf")
 		return (0.0 / 0.0);
 	return (0.0);
 }
 
 double	Casting::doubleInfNan() {
-	if (this->_str == "-inff" || this->_str == "-inf")
+	if (this->_str == "-inf")
 		return (-1.0 / 0.0);
-	else if (this->_str == "+inff" || this->_str == "+inf")
+	else if (this->_str == "inf" ||this->_str == "+inf")
 		return (1.0 / 0.0);
-	else if (this->_str == "nanf" || this->_str == "nan")
+	else if (this->_str == "nan")
 		return (0.0 / 0.0);
 	return (0.0);
 }
@@ -308,9 +296,9 @@ int		Casting::checkType() {
 			type = 1;
 	}
 	if (type == -1) {
-		if (this->_str == "+inff" || this->_str == "-inff" || this->_str == "nanf")
+		if (this->_str == "inff" || this->_str == "+inff" || this->_str == "-inff" || this->_str == "nanf")
 			type = 2;
-		else if (this->_str == "+inf" || this->_str == "-inf" || this->_str == "nan")
+		else if (this->_str == "inf" ||this->_str == "+inf" || this->_str == "-inf" || this->_str == "nan")
 			type = 3;
 	}
 	return type;
@@ -382,8 +370,6 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 	try {
 		float f = cast.getFloat();
 
-		// if (isnan(f) && signbit(f))
-		// 	out << "-";
 		out << f;
 		if (!isnan(f) && f - static_cast<int>(f) == 0)
 			out << ".0";
@@ -395,8 +381,6 @@ std::ostream &operator << (std::ostream &out, Casting const &cast) {
 	try {
 		double d = cast.getDouble();
 
-		// if (isnan(d) && signbit(d))
-		// 	out << "-";
 		out << d;
 		if (!isnan(d) && d - static_cast<int>(d) == 0)
 			out << ".0";
