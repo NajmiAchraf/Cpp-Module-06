@@ -109,6 +109,8 @@ re : fclean all
 run : re
 	$(T_RUN_S)
 	./$(NAME) 0
+	./$(NAME) 10
+	./$(NAME) 48
 	./$(NAME) 42
 	./$(NAME) 42.42
 	./$(NAME) 42.42f

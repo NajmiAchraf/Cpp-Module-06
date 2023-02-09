@@ -21,16 +21,11 @@ private:
 
 	string	_str;
 	int		_type;
+	bool	_flag;
 	char	_char;
 	int		_int;
 	float	_float;
 	double	_double;
-
-	// flags of types
-	bool	_isChar;
-	bool	_isInt;
-	bool	_isFloat;
-	bool	_isDouble;
 
 public:
 

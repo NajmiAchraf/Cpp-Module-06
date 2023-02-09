@@ -1,7 +1,7 @@
 #include "Casting.hpp"
 
 char	Casting::getChar() const {
-	if (this->_isChar) {
+	if (this->_flag) {
 		try {
 			if (!isascii(static_cast<int>(this->_char)))
 				throw Casting::ImpossibleException();
@@ -18,7 +18,7 @@ char	Casting::getChar() const {
 }
 
 int		Casting::getInt() const {
-	if (this->_isInt)
+	if (this->_flag)
 		return this->_int;
 	else
 		throw ImpossibleException();
@@ -27,7 +27,7 @@ int		Casting::getInt() const {
 }
 
 float	Casting::getFloat() const {
-	if (this->_isFloat)
+	if (this->_flag)
 		return this->_float;
 	else
 		throw ImpossibleException();
@@ -35,7 +35,7 @@ float	Casting::getFloat() const {
 }
 
 double	Casting::getDouble() const {
-	if (this->_isDouble)
+	if (this->_flag)
 		return this->_double;
 	else
 		throw ImpossibleException();
@@ -55,10 +55,7 @@ Casting::Casting(string str) : _str(str) {
 		<< C_CYAN << "The entred string is : " << _str << C_RES << endl;
 	try {
 		fillType();
-		_isChar = true;
-		_isInt = true;
-		_isFloat = true;
-		_isDouble = true;
+		_flag = true;
 	} catch (...) {}
 }
 
@@ -344,17 +341,11 @@ void	Casting::fillType() {
 			this->_int = static_cast<int>(this->_double);
 			this->_float = static_cast<float>(this->_double);
 		} else {
-			_isChar = false;
-			_isInt = false;
-			_isFloat = false;
-			_isDouble = false;
+			_flag = false;
 			throw Casting::ImpossibleException();
 		}
 	} catch (std::exception &e) {
-		_isChar = false;
-		_isInt = false;
-		_isFloat = false;
-		_isDouble = false;
+		_flag = false;
 		throw Casting::ImpossibleException();
 	}
 }
